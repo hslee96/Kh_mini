@@ -20,6 +20,8 @@ public class Manager extends JFrame {
 
     DefaultTableModel model;
 
+    JTable table;
+
     public Manager() {
 
         setTitle("관리자");
@@ -64,18 +66,17 @@ public class Manager extends JFrame {
                     //연동이 되었을 때, JTable로 해당 데이터를 보여준다.
 
                 }else {
-                    int result = JOptionPane.showConfirmDialog(null, "샘플 데이터를 보여주나요?", "경고", JOptionPane.YES_NO_OPTION);
-                    //yes를 눌렀을 때
+                    int result = JOptionPane.showConfirmDialog(null, "샘플 데이터를 보여줄까요?", "경고", JOptionPane.YES_NO_OPTION);
+                    // yes를 눌렀을 때
                     if(result == 0) {
                         System.out.println("준비중");
 
-                        SampleMember sampleMember1 = new SampleMember("테스트이름1", 11, "테스트주소1", "테스트번호1");
-                        SampleMember sampleMember2 = new SampleMember("테스트이름2", 22, "테스트주소2", "테스트번호2");
+                        SampleMember sampleMember1 = new SampleMember("01012345678", "홍길동", "1995-01-01", 0);
+                        SampleMember sampleMember2 = new SampleMember("01023456789", "이몽룡", "1996-02-02", 10000);
 
-                        //JTable에 보여줄 데이터를 sout로 선출력
-                        System.out.println(sampleMember1);
-                        System.out.println(sampleMember2);
-
+                        // JTable에 보여줄 데이터를 선출력
+                        System.out.println(sampleMember1.getId() + "\t" + sampleMember1.getName() + "\t" + sampleMember1.getBd() + "\t" + sampleMember1.getMileage());
+                        System.out.println(sampleMember2.getId() + "\t" + sampleMember2.getName() + "\t" + sampleMember2.getBd() + "\t" + sampleMember2.getMileage());
 
                     // no를 눌렀을 때
                     } else if(result == 1){
@@ -94,6 +95,9 @@ public class Manager extends JFrame {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                connect();
+
+
                 // 주문내역 + 매출합계 출력
 
             }

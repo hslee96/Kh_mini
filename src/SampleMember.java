@@ -1,21 +1,27 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class SampleMember {
+    private String id;
     private String name;
-    private int age;
-    private String address;
-    private String phone;
+    private String bd;
+    private int mileage;
 
     public SampleMember() {
     }
 
-    public SampleMember(String name, int age, String address, String phone) {
+    public SampleMember(String id, String name, String bd, int mileage) {
+        this.id = id;
         this.name = name;
-        this.age = age;
-        this.address = address;
-        this.phone = phone;
+        this.bd = bd;
+        this.mileage = mileage;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -26,40 +32,32 @@ public class SampleMember {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public String getBd() {
+        return bd;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBd(String bd) {
+        this.bd = bd;
     }
 
-    public String getAddress() {
-        return address;
+    public int getMileage() {
+        return mileage;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof SampleMember)) return false;
         SampleMember that = (SampleMember) o;
-        return getAge() == that.getAge() && Objects.equals(getName(), that.getName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getPhone(), that.getPhone());
+        return getMileage() == that.getMileage() && Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getBd(), that.getBd());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getAge(), getAddress(), getPhone());
+        return Objects.hash(getId(), getName(), getBd(), getMileage());
     }
 }
