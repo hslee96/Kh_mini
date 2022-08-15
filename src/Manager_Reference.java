@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Manager extends JFrame {
+public class Manager_Reference extends JFrame {
 
     Connection con = null;
 
@@ -22,7 +22,7 @@ public class Manager extends JFrame {
 
     JTable table;
 
-    public Manager() {
+    public Manager_Reference() {
 
         setTitle("관리자");
 
@@ -117,7 +117,7 @@ public class Manager extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // 누르면 메인화면으로 돌아가는 기능
                 dispose();
-                new Manager();      // Manager 대신 메인화면 클래스 이름 삽입
+                new Manager_Reference();      // Manager 대신 메인화면 클래스 이름 삽입
             }
         });
     }
@@ -142,6 +142,6 @@ public class Manager extends JFrame {
 
     public static void main(String[] args) {
 
-        new Manager();
+        new Manager_Reference();
     }
 }
