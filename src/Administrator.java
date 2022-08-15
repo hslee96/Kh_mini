@@ -5,17 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class Administrator extends JFrame {
 
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    String sql = null;
     DefaultTableModel model;
-    JTable table;
     String adminFont = "맑은고딕";
 
     public Administrator() {
@@ -84,7 +78,7 @@ public class Administrator extends JFrame {
             }
         });
 
-        // 키오스크 종료 버튼
+        // 키오스크 종료 버튼 (다른 기능으로 수정 예정)
         btn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

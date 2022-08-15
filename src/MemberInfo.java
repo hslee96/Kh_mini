@@ -3,12 +3,17 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class MemberInfo extends JFrame {
 
     DefaultTableModel model;
     JTable table;
     String memberInfoFont = "맑은고딕";
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    String sql = null;
 
     public MemberInfo() {
 
@@ -16,7 +21,7 @@ public class MemberInfo extends JFrame {
 
         JPanel container = new JPanel();
 
-        String[] header = {"ID(휴대폰 번호)", "PW", "생년월일", "적립금"};
+        String[] header = {"ID(휴대폰 번호)", "PW", "이름", "생년월일", "적립금"};
 
         model = new DefaultTableModel(header, 0);
 
@@ -51,6 +56,9 @@ public class MemberInfo extends JFrame {
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                connect();
+                model.setRowCount(0);
+                memberInfo();
 
             }
         });
@@ -63,6 +71,48 @@ public class MemberInfo extends JFrame {
                 new Administrator();
             }
         });
+    }
+
+    void connect() {
+
+        String driver = "oracle.jdbc.driver.OracleDriver";
+
+        String url = "jdbc:oracle:thin:@localhost:1521:xe";
+
+        String user = "web";
+
+        String password = "1234";
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(url, user, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void memberInfo() {
+        try {
+            sql = "select * from cafe_member";
+            preparedStatement = connection.prepareStatement(sql);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                int pw = resultSet.getInt("pw");
+                String name = resultSet.getString("name");
+                String bd = resultSet.getString("bd").substring(0, 10);
+                int mileage = resultSet.getInt("mileage");
+
+                Object[] data = {id, pw, name, bd, mileage};
+
+                model.addRow(data);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
