@@ -26,7 +26,7 @@ public class Administrator extends JFrame {
 
         JButton btn1 = new JButton("회원정보");
         JButton btn2 = new JButton("매출관리");
-        JButton btn3 = new JButton("키오스크 종료");
+        JButton btn3 = new JButton("재고관리");
         JButton btn4 = new JButton("메인으로");
 
         btn1.setFont(new Font(adminFont, Font.BOLD, 15));
@@ -78,15 +78,18 @@ public class Administrator extends JFrame {
             }
         });
 
-        // 키오스크 종료 버튼 (다른 기능으로 수정 예정)
+        // 재고관리 버튼
         btn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                dispose();
+                new Stocktaking();
+
             }
         });
 
         // 메인으로 버튼
+
         btn4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -22,11 +22,8 @@ public class MemberInfo extends JFrame {
         JPanel container = new JPanel();
 
         String[] header = {"ID(휴대폰 번호)", "PW", "이름", "생년월일", "적립금"};
-
         model = new DefaultTableModel(header, 0);
-
         table = new JTable(model);
-
         JScrollPane jsp = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         JButton btn1 = new JButton("조회");
@@ -102,7 +99,7 @@ public class MemberInfo extends JFrame {
                 String id = resultSet.getString("id");
                 int pw = resultSet.getInt("pw");
                 String name = resultSet.getString("name");
-                String bd = resultSet.getString("bd").substring(0, 10);
+                String bd = resultSet.getString("bd").substring(0, 8);
                 int mileage = resultSet.getInt("mileage");
 
                 Object[] data = {id, pw, name, bd, mileage};

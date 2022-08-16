@@ -24,9 +24,7 @@ public class Turnover extends JFrame {
 
         String[] header = {"주문번호", "메뉴명", "수량", "금액", "주문일시"};
         model = new DefaultTableModel(header, 0);
-
         JTable table = new JTable(model);
-
         JScrollPane jsp = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jl1 = new JLabel();

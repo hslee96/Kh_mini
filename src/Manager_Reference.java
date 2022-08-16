@@ -61,7 +61,7 @@ public class Manager_Reference extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 connect();
-//                con = null;
+                con = null;
                 if (con != null) {
                     //연동이 되었을 때, JTable로 해당 데이터를 보여준다.
 
