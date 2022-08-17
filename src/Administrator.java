@@ -1,11 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 public class Administrator extends JFrame {
 
-    Connection connection = null;
     String adminFont = "맑은고딕";
 
     public Administrator() {
