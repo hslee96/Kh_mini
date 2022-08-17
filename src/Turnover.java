@@ -45,7 +45,7 @@ public class Turnover extends JFrame {
         container1.setLayout(new FlowLayout(FlowLayout.RIGHT, 50, 50));
         add(container2, BorderLayout.SOUTH);
 
-        setBounds(150, 150, 700, 700);
+        setBounds(150, 150, 700, 600);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
