@@ -94,20 +94,20 @@ public class Turnover extends JFrame {
     // 매출 조회하는 메서드
     void turnover() {
         try {
-            sql = "select order_num, menu, price, qty, price * qty as \"order_sum\", order_date from cafe";
+            sql = "select bill_id, sale_name, sale_count, sale_cost * sale_count as \"sale_sum\", sale_date from sales_management";
             preparedStatement = connection.prepareStatement(sql);
 
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int orderNum = resultSet.getInt("order_num");
-                String menu = resultSet.getString("menu");
-                int qty = resultSet.getInt("qty");
-                int orderSum = resultSet.getInt("order_sum");
-                String orderDate = resultSet.getString("order_date");
+                int billId = resultSet.getInt("bill_id");
+                String saleName = resultSet.getString("sale_name");
+                int saleCount = resultSet.getInt("sale_count");
+                int saleSum = resultSet.getInt("sale_sum");
+                String saleDate = resultSet.getString("sale_date");
 
-                orderSumResult += orderSum;
-                Object[] data = {orderNum, menu, qty, orderSum, orderDate};
+                orderSumResult += saleSum;
+                Object[] data = {billId, saleName, saleCount, saleSum, saleDate};
 
                 model.addRow(data);
 
@@ -117,10 +117,5 @@ public class Turnover extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-
-        new Turnover();
     }
 }

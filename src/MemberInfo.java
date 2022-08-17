@@ -14,6 +14,20 @@ public class MemberInfo extends JFrame {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     String sql = null;
+    JScrollPane jsp;
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public MemberInfo(JTable jTable, DefaultTableModel defaultTableModel) {
+        this.table = jTable;
+        this.model = defaultTableModel;
+    }
 
     public MemberInfo() {
 
@@ -21,31 +35,40 @@ public class MemberInfo extends JFrame {
 
         JPanel container = new JPanel();
 
-        String[] header = {"ID(휴대폰 번호)", "PW", "이름", "생년월일", "적립금"};
+        String[] header = {"휴대폰 번호", "생년월일", "이름", "스탬프", "소비금액"};
         model = new DefaultTableModel(header, 0);
         table = new JTable(model);
-        JScrollPane jsp = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        table.setModel(model);
+        jsp = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         JButton btn1 = new JButton("조회");
-        JButton btn2 = new JButton("뒤로가기");
+        JButton btn2 = new JButton("수정");
+        JButton btn3 = new JButton("삭제");
+        JButton btn4 = new JButton("뒤로가기");
 
         btn1.setFont(new Font(memberInfoFont, Font.BOLD, 12));
         btn2.setFont(new Font(memberInfoFont, Font.BOLD, 12));
+        btn3.setFont(new Font(memberInfoFont, Font.BOLD, 12));
+        btn4.setFont(new Font(memberInfoFont, Font.BOLD, 12));
 
         btn1.setPreferredSize(new Dimension(90,40));
         btn2.setPreferredSize(new Dimension(90,40));
+        btn3.setPreferredSize(new Dimension(90,40));
+        btn4.setPreferredSize(new Dimension(90,40));
 
         container.add(btn1);
         container.add(btn2);
+        container.add(btn3);
+        container.add(btn4);
 
         add(jsp, BorderLayout.CENTER);
         add(container, BorderLayout.SOUTH);
 
-        setBounds(200, 200, 500, 300);
+        setBounds(200, 200, 500, 500);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setVisible(true);
+//        setVisible(true);
 
 //      여기까지 화면 구현
 
@@ -55,13 +78,29 @@ public class MemberInfo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 connect();
                 model.setRowCount(0);
-                memberInfo();
+                memberShow();
 
+            }
+        });
+        // 수정 버튼
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MemberUpdate(new MemberInfo(table, model));
+            }
+        });
+
+        // 삭제 버튼
+        btn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                connect();
+                memberDelete();
             }
         });
 
         // 뒤로가기 버튼
-        btn2.addActionListener(new ActionListener() {
+        btn4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -70,7 +109,7 @@ public class MemberInfo extends JFrame {
         });
     }
 
-    void connect() {
+    public void connect() {
 
         String driver = "oracle.jdbc.driver.OracleDriver";
 
@@ -88,21 +127,21 @@ public class MemberInfo extends JFrame {
         }
     }
 
-    void memberInfo() {
+    public void memberShow() {
         try {
-            sql = "select * from cafe_member";
+            sql = "select * from member_Option order by member_phone";
             preparedStatement = connection.prepareStatement(sql);
 
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String id = resultSet.getString("id");
-                int pw = resultSet.getInt("pw");
-                String name = resultSet.getString("name");
-                String bd = resultSet.getString("bd").substring(0, 8);
-                int mileage = resultSet.getInt("mileage");
+                String memberPhone = resultSet.getString("member_phone");
+                String memberPw = resultSet.getString("member_pw");
+                String memberName = resultSet.getString("member_name");
+                int memberMileage = resultSet.getInt("member_mileage");
+                int memberPay = resultSet.getInt("member_pay");
 
-                Object[] data = {id, pw, name, bd, mileage};
+                Object[] data = {memberPhone, memberPw, memberName, memberMileage, memberPay};
 
                 model.addRow(data);
 
@@ -112,8 +151,28 @@ public class MemberInfo extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public void memberDelete() {
+        try {
+            sql = "delete from member_option where member_phone = ?";
+            preparedStatement = connection.prepareStatement(sql);
 
-        new MemberInfo();
+            int row = table.getSelectedRow();
+
+            preparedStatement.setString(1, model.getValueAt(row, 0).toString());
+
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "회원 삭제 성공");
+            }else {
+                JOptionPane.showMessageDialog(null, "회원 삭제 실패");
+            }
+
+            // 테이블에서 바로 하나의 레코드(행) 삭제
+            model.removeRow(row);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

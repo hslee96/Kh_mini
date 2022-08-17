@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.Enumeration;
 
 public class Stocktaking extends JFrame {
 
@@ -15,6 +16,7 @@ public class Stocktaking extends JFrame {
     String stocktakingFont = "맑은고딕";
     JTextField jtf1;
     JRadioButton jrb1, jrb2, jrb3, jrb4, jrb5, jrb6, jrb7, jrb8, jrb9, jrb10, jrb11, jrb12;
+    ButtonGroup bg;
 
     public Stocktaking() {
 
@@ -40,18 +42,18 @@ public class Stocktaking extends JFrame {
         jl2.setFont(new Font(stocktakingFont, Font.BOLD, 18));
 
         jrb1 = new JRadioButton("아메리카노");
-        jrb2 = new JRadioButton("카페라떼");
-        jrb3 = new JRadioButton("바닐라라떼");
-        jrb4 = new JRadioButton("카푸치노");
-        jrb5 = new JRadioButton("에스프레소");
-        jrb6 = new JRadioButton("자몽에이드");
-        jrb7 = new JRadioButton("레몬에이드");
-        jrb8 = new JRadioButton("청귤에이드");
-        jrb9 = new JRadioButton("녹차");
+        jrb2 = new JRadioButton("핫아메리카노");
+        jrb3 = new JRadioButton("카페라떼");
+        jrb4 = new JRadioButton("청포도에이드");
+        jrb5 = new JRadioButton("자몽에이드");
+        jrb6 = new JRadioButton("청귤에이드");
+        jrb7 = new JRadioButton("치즈케이크");
+        jrb8 = new JRadioButton("초코케이크");
+        jrb9 = new JRadioButton("7레이어초코");
         jrb10 = new JRadioButton("홍차");
-        jrb11 = new JRadioButton("핫초코");
-        jrb12 = new JRadioButton("물");
-        ButtonGroup bg = new ButtonGroup();
+        jrb11 = new JRadioButton("녹차");
+        jrb12 = new JRadioButton("핫초코");
+        bg = new ButtonGroup();
         bg.add(jrb1);
         bg.add(jrb2);
         bg.add(jrb3);
@@ -118,7 +120,7 @@ public class Stocktaking extends JFrame {
 
 //      여기까지 화면구현
 
-        // 재고 조회 버튼
+        // 재고 조회 버튼 (주문 내역 만큼 재고 감소시키는 메서드 필요)
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -133,10 +135,13 @@ public class Stocktaking extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 connect();
+                model.setRowCount(0);
                 addStock();
 
                 jtf1.setText(null);
                 bg.clearSelection();
+
+                stocktaking();
             }
         });
 
@@ -192,46 +197,50 @@ public class Stocktaking extends JFrame {
             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setInt(1, Integer.parseInt(jtf1.getText()));
-            if (jrb1.isSelected()) {
-                preparedStatement.setString(2, jrb1.getText());
-            } else if (jrb2.isSelected()) {
-                preparedStatement.setString(2, jrb2.getText());
-            } else if (jrb3.isSelected()) {
-                preparedStatement.setString(2, jrb3.getText());
-            } else if (jrb4.isSelected()) {
-                preparedStatement.setString(2, jrb4.getText());
-            } else if (jrb5.isSelected()) {
-                preparedStatement.setString(2, jrb5.getText());
-            } else if (jrb6.isSelected()) {
-                preparedStatement.setString(2, jrb6.getText());
-            } else if (jrb7.isSelected()) {
-                preparedStatement.setString(2, jrb7.getText());
-            } else if (jrb8.isSelected()) {
-                preparedStatement.setString(2, jrb8.getText());
-            } else if (jrb9.isSelected()) {
-                preparedStatement.setString(2, jrb9.getText());
-            } else if (jrb10.isSelected()) {
-                preparedStatement.setString(2, jrb10.getText());
-            } else if (jrb11.isSelected()) {
-                preparedStatement.setString(2, jrb11.getText());
-            } else if (jrb12.isSelected()) {
-                preparedStatement.setString(2, jrb12.getText());
+
+            Enumeration<AbstractButton> elements = bg.getElements();
+            while (elements.hasMoreElements()) {
+                AbstractButton abstractButton = elements.nextElement();
+                if (abstractButton.isSelected()) {
+                    preparedStatement.setString(2, abstractButton.getText());
+                }
             }
+
+//            if (jrb1.isSelected()) {
+//                preparedStatement.setString(2, jrb1.getText());
+//            } else if (jrb2.isSelected()) {
+//                preparedStatement.setString(2, jrb2.getText());
+//            } else if (jrb3.isSelected()) {
+//                preparedStatement.setString(2, jrb3.getText());
+//            } else if (jrb4.isSelected()) {
+//                preparedStatement.setString(2, jrb4.getText());
+//            } else if (jrb5.isSelected()) {
+//                preparedStatement.setString(2, jrb5.getText());
+//            } else if (jrb6.isSelected()) {
+//                preparedStatement.setString(2, jrb6.getText());
+//            } else if (jrb7.isSelected()) {
+//                preparedStatement.setString(2, jrb7.getText());
+//            } else if (jrb8.isSelected()) {
+//                preparedStatement.setString(2, jrb8.getText());
+//            } else if (jrb9.isSelected()) {
+//                preparedStatement.setString(2, jrb9.getText());
+//            } else if (jrb10.isSelected()) {
+//                preparedStatement.setString(2, jrb10.getText());
+//            } else if (jrb11.isSelected()) {
+//                preparedStatement.setString(2, jrb11.getText());
+//            } else if (jrb12.isSelected()) {
+//                preparedStatement.setString(2, jrb12.getText());
+//            }
 
             int result = preparedStatement.executeUpdate();
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(null, "재고 추가 완료");
+                JOptionPane.showMessageDialog(null, "재고가 추가되었습니다.");
             }else {
-                JOptionPane.showMessageDialog(null, "재고 추가 실패");
+                JOptionPane.showMessageDialog(null, "다시 시도하세요.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-
-        new Stocktaking();
     }
 }

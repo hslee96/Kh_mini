@@ -65,7 +65,8 @@ public class Administrator extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new MemberInfo();
+                MemberInfo memberInfo = new MemberInfo();
+                memberInfo.setVisible(true);
             }
         });
 
