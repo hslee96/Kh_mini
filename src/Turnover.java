@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class Turnover extends JFrame {
@@ -51,28 +49,20 @@ public class Turnover extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setVisible(true);
-
 //      여기까지 화면 구현
 
-        // 매출 조회 버튼
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connect();
-                model.setRowCount(0);
-                orderSumResult = 0;
-                turnover();
-            }
+        // 조회 버튼
+        btn1.addActionListener(e -> {
+            connect();
+            model.setRowCount(0);
+            orderSumResult = 0;
+            turnover();
         });
 
         // 뒤로가기 버튼
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Administrator();
-            }
+        btn2.addActionListener(e -> {
+            dispose();
+            new Administrator();
         });
     }
 
@@ -112,7 +102,6 @@ public class Turnover extends JFrame {
                 model.addRow(data);
 
                 jl1.setText("합계 : " + orderSumResult + " 원");
-
             }
         } catch (SQLException e) {
             e.printStackTrace();

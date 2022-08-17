@@ -1,7 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -48,23 +46,18 @@ public class MemberUpdate extends JFrame {
 
         setVisible(true);
 
-        // 수정 확인 버튼
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connect();
-                memberUpdate(memberInfo.table, memberInfo.model);
-                dispose();
-            }
+        // 확인 버튼
+        btn1.addActionListener(e -> {
+            connect();
+            memberUpdate(memberInfo.table, memberInfo.model);
+            dispose();
+            memberInfo.model.setRowCount(0);
+            memberInfo.memberShow();
         });
 
-        // 수정 취소 버튼
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        // 취소 버튼
+        btn2.addActionListener(e ->
+                dispose());
     }
 
     public void connect() {
@@ -107,5 +100,8 @@ public class MemberUpdate extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
     }
 }

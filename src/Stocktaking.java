@@ -15,7 +15,6 @@ public class Stocktaking extends JFrame {
     DefaultTableModel model;
     String stocktakingFont = "맑은고딕";
     JTextField jtf1;
-    JRadioButton jrb1, jrb2, jrb3, jrb4, jrb5, jrb6, jrb7, jrb8, jrb9, jrb10, jrb11, jrb12;
     ButtonGroup bg;
 
     public Stocktaking() {
@@ -41,18 +40,19 @@ public class Stocktaking extends JFrame {
         jl2.setBounds(40, 370, 100, 25);
         jl2.setFont(new Font(stocktakingFont, Font.BOLD, 18));
 
-        jrb1 = new JRadioButton("아메리카노");
-        jrb2 = new JRadioButton("핫아메리카노");
-        jrb3 = new JRadioButton("카페라떼");
-        jrb4 = new JRadioButton("청포도에이드");
-        jrb5 = new JRadioButton("자몽에이드");
-        jrb6 = new JRadioButton("청귤에이드");
-        jrb7 = new JRadioButton("치즈케이크");
-        jrb8 = new JRadioButton("초코케이크");
-        jrb9 = new JRadioButton("7레이어초코");
-        jrb10 = new JRadioButton("홍차");
-        jrb11 = new JRadioButton("녹차");
-        jrb12 = new JRadioButton("핫초코");
+        // 메뉴 종류 픽스되면 거기에 맞춰서 수정
+        JRadioButton jrb1 = new JRadioButton("아메리카노");
+        JRadioButton jrb2 = new JRadioButton("핫아메리카노");
+        JRadioButton jrb3 = new JRadioButton("카페라떼");
+        JRadioButton jrb4 = new JRadioButton("청포도에이드");
+        JRadioButton jrb5 = new JRadioButton("자몽에이드");
+        JRadioButton jrb6 = new JRadioButton("청귤에이드");
+        JRadioButton jrb7 = new JRadioButton("치즈케이크");
+        JRadioButton jrb8 = new JRadioButton("초코케이크");
+        JRadioButton jrb9 = new JRadioButton("7레이어초코");
+        JRadioButton jrb10 = new JRadioButton("홍차");
+        JRadioButton jrb11 = new JRadioButton("녹차");
+        JRadioButton jrb12 = new JRadioButton("핫초코");
         bg = new ButtonGroup();
         bg.add(jrb1);
         bg.add(jrb2);
@@ -115,8 +115,6 @@ public class Stocktaking extends JFrame {
         setBounds(150, 150, 615, 700);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        setVisible(true);
 
 //      여기까지 화면구현
 
@@ -205,32 +203,6 @@ public class Stocktaking extends JFrame {
                     preparedStatement.setString(2, abstractButton.getText());
                 }
             }
-
-//            if (jrb1.isSelected()) {
-//                preparedStatement.setString(2, jrb1.getText());
-//            } else if (jrb2.isSelected()) {
-//                preparedStatement.setString(2, jrb2.getText());
-//            } else if (jrb3.isSelected()) {
-//                preparedStatement.setString(2, jrb3.getText());
-//            } else if (jrb4.isSelected()) {
-//                preparedStatement.setString(2, jrb4.getText());
-//            } else if (jrb5.isSelected()) {
-//                preparedStatement.setString(2, jrb5.getText());
-//            } else if (jrb6.isSelected()) {
-//                preparedStatement.setString(2, jrb6.getText());
-//            } else if (jrb7.isSelected()) {
-//                preparedStatement.setString(2, jrb7.getText());
-//            } else if (jrb8.isSelected()) {
-//                preparedStatement.setString(2, jrb8.getText());
-//            } else if (jrb9.isSelected()) {
-//                preparedStatement.setString(2, jrb9.getText());
-//            } else if (jrb10.isSelected()) {
-//                preparedStatement.setString(2, jrb10.getText());
-//            } else if (jrb11.isSelected()) {
-//                preparedStatement.setString(2, jrb11.getText());
-//            } else if (jrb12.isSelected()) {
-//                preparedStatement.setString(2, jrb12.getText());
-//            }
 
             int result = preparedStatement.executeUpdate();
 

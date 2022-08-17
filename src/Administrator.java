@@ -1,15 +1,8 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 public class Administrator extends JFrame {
 
-    Connection connection = null;
-    DefaultTableModel model;
     String adminFont = "맑은고딕";
 
     public Administrator() {
@@ -61,61 +54,32 @@ public class Administrator extends JFrame {
 //      여기까지 화면 구현
 
         // 회원정보 버튼
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                MemberInfo memberInfo = new MemberInfo();
-                memberInfo.setVisible(true);
-            }
+        btn1.addActionListener(e -> {
+            dispose();
+            MemberInfo memberInfo = new MemberInfo();
+            memberInfo.setVisible(true);
         });
 
         // 매출관리 버튼
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Turnover();
-            }
+        btn2.addActionListener(e -> {
+            dispose();
+            Turnover turnover = new Turnover();
+            turnover.setVisible(true);
         });
 
         // 재고관리 버튼
-        btn3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Stocktaking();
+        btn3.addActionListener(e -> {
+            dispose();
+            Stocktaking stocktaking = new Stocktaking();
+            stocktaking.setVisible(true);
 
-            }
         });
 
         // 메인으로 버튼
-
-        btn4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Administrator();
-            }
+        btn4.addActionListener(e -> {
+            dispose();
+            new Administrator();        // 메인페이지로 연동하면 됨
         });
-    }
-
-    void connect() {
-
-        String driver = "oracle.jdbc.driver.OracleDriver";
-
-        String url = "jdbc:oracle:thin:@localhost:1521:xe";
-
-        String user = "web";
-
-        String password = "1234";
-
-        try {
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static void main(String[] args) {

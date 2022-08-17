@@ -1,32 +1,23 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class MemberInfo extends JFrame {
 
     DefaultTableModel model;
     JTable table;
+    JScrollPane jsp;
     String memberInfoFont = "맑은고딕";
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     String sql = null;
-    JScrollPane jsp;
-
-    public DefaultTableModel getModel() {
-        return model;
-    }
-
-    public JTable getTable() {
-        return table;
-    }
 
     public MemberInfo(JTable jTable, DefaultTableModel defaultTableModel) {
         this.table = jTable;
         this.model = defaultTableModel;
+        connect();
     }
 
     public MemberInfo() {
@@ -68,44 +59,29 @@ public class MemberInfo extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//        setVisible(true);
-
 //      여기까지 화면 구현
 
         // 조회 버튼
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connect();
-                model.setRowCount(0);
-                memberShow();
+        btn1.addActionListener(e -> {
+            connect();
+            model.setRowCount(0);
+            memberShow();
 
-            }
         });
         // 수정 버튼
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new MemberUpdate(new MemberInfo(table, model));
-            }
-        });
+        btn2.addActionListener(e ->
+                new MemberUpdate(new MemberInfo(table, model)));
 
         // 삭제 버튼
-        btn3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connect();
-                memberDelete();
-            }
+        btn3.addActionListener(e -> {
+            connect();
+            memberDelete();
         });
 
         // 뒤로가기 버튼
-        btn4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Administrator();
-            }
+        btn4.addActionListener(e -> {
+            dispose();
+            new Administrator();
         });
     }
 
@@ -144,8 +120,10 @@ public class MemberInfo extends JFrame {
                 Object[] data = {memberPhone, memberPw, memberName, memberMileage, memberPay};
 
                 model.addRow(data);
-
             }
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -168,7 +146,6 @@ public class MemberInfo extends JFrame {
                 JOptionPane.showMessageDialog(null, "회원 삭제 실패");
             }
 
-            // 테이블에서 바로 하나의 레코드(행) 삭제
             model.removeRow(row);
 
         } catch (SQLException e) {
