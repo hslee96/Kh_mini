@@ -126,12 +126,18 @@ public class Stocktaking extends JFrame {
         // 재고 추가 버튼
         btn2.addActionListener(e -> {
             connect();
+            try {
+                if (bg.getSelection() != null && !(jtf1.getText().isEmpty())) {
+                    addStock();
+                } else {
+                    JOptionPane.showMessageDialog(null, "추가할 상품을 선택하고 수량을 입력하세요.", "오류", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException exception) {
+                exception.printStackTrace();
+            }
             model.setRowCount(0);
-            addStock();
-
             jtf1.setText(null);
             bg.clearSelection();
-
             stocktaking();
         });
 

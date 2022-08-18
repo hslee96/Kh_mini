@@ -69,13 +69,22 @@ public class MemberInfo extends JFrame {
 
         });
         // 수정 버튼
-        btn2.addActionListener(e ->
-                new MemberUpdate(new MemberInfo(table, model)));
+        btn2.addActionListener(e -> {
+            if (table.isRowSelected(table.getSelectedRow())) {
+                new MemberUpdate(new MemberInfo(table, model));
+            } else {
+                JOptionPane.showMessageDialog(null, "수정할 회원을 선택하세요.", "오류", JOptionPane.WARNING_MESSAGE);
+            }
+        });
 
         // 삭제 버튼
         btn3.addActionListener(e -> {
             connect();
-            memberDelete();
+            if (table.isRowSelected(table.getSelectedRow())) {
+                memberDelete();
+            } else {
+                JOptionPane.showMessageDialog(null, "삭제할 회원을 선택하세요.", "오류", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         // 뒤로가기 버튼
@@ -149,9 +158,9 @@ public class MemberInfo extends JFrame {
             int result = preparedStatement.executeUpdate();
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(null, "회원 삭제 성공");
+                JOptionPane.showMessageDialog(null, "회원 정보가 삭제되었습니다.");
             }else {
-                JOptionPane.showMessageDialog(null, "회원 삭제 실패");
+                JOptionPane.showMessageDialog(null, "다시 시도하세요.");
             }
 
             model.removeRow(row);

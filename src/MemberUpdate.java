@@ -48,9 +48,12 @@ public class MemberUpdate extends JFrame {
 
         // 확인 버튼
         btn1.addActionListener(e -> {
+
+
             connect();
             memberUpdate(memberInfo.table, memberInfo.model);
             dispose();
+
             memberInfo.model.setRowCount(0);
             memberInfo.memberShow();
         });
@@ -92,12 +95,12 @@ public class MemberUpdate extends JFrame {
             int result = preparedStatement.executeUpdate();
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(null, "정보가 수정되었습니다.");
+                JOptionPane.showMessageDialog(null, "회원 정보가 수정되었습니다.");
             }else {
                 JOptionPane.showMessageDialog(null, "다시 시도하세요.");
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
