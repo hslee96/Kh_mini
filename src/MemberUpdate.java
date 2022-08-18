@@ -48,14 +48,19 @@ public class MemberUpdate extends JFrame {
 
         // 확인 버튼
         btn1.addActionListener(e -> {
-
-
             connect();
-            memberUpdate(memberInfo.table, memberInfo.model);
-            dispose();
-
-            memberInfo.model.setRowCount(0);
-            memberInfo.memberShow();
+            try {
+                if (!(jtf1.getText().isEmpty()) && !(jtf2.getText().isEmpty())) {
+                    memberUpdate(memberInfo.table, memberInfo.model);
+                    dispose();
+                    memberInfo.model.setRowCount(0);
+                    memberInfo.memberShow();
+                } else {
+                    JOptionPane.showMessageDialog(null, "수정할 내용을 입력하세요.", "오류", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         });
 
         // 취소 버튼

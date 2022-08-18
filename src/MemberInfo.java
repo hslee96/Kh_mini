@@ -79,11 +79,18 @@ public class MemberInfo extends JFrame {
 
         // 삭제 버튼
         btn3.addActionListener(e -> {
-            connect();
-            if (table.isRowSelected(table.getSelectedRow())) {
-                memberDelete();
+            int result = JOptionPane.showConfirmDialog(null, "정말로 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.CLOSED_OPTION) {
+                JOptionPane.showMessageDialog(null, "취소를 클릭하셨습니다.");
+            } else if (result == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "회원정보가 삭제되지 않았습니다.");
             } else {
-                JOptionPane.showMessageDialog(null, "삭제할 회원을 선택하세요.", "오류", JOptionPane.WARNING_MESSAGE);
+                connect();
+                if (table.isRowSelected(table.getSelectedRow())) {
+                    memberDelete();
+                } else {
+                    JOptionPane.showMessageDialog(null, "삭제할 회원을 선택하세요.", "오류", JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
 
