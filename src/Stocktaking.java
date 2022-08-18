@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.Enumeration;
 
@@ -119,37 +117,28 @@ public class Stocktaking extends JFrame {
 //      여기까지 화면구현
 
         // 재고 조회 버튼 (주문 내역 만큼 재고 감소시키는 메서드 필요)
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connect();
-                model.setRowCount(0);
-                stocktaking();
-            }
+        btn1.addActionListener(e -> {
+            connect();
+            model.setRowCount(0);
+            stocktaking();
         });
 
         // 재고 추가 버튼
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connect();
-                model.setRowCount(0);
-                addStock();
+        btn2.addActionListener(e -> {
+            connect();
+            model.setRowCount(0);
+            addStock();
 
-                jtf1.setText(null);
-                bg.clearSelection();
+            jtf1.setText(null);
+            bg.clearSelection();
 
-                stocktaking();
-            }
+            stocktaking();
         });
 
         // 뒤로 가기 버튼
-        btn3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Administrator();
-            }
+        btn3.addActionListener(e -> {
+            dispose();
+            new Administrator();
         });
     }
 
@@ -186,6 +175,14 @@ public class Stocktaking extends JFrame {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -205,7 +202,6 @@ public class Stocktaking extends JFrame {
             }
 
             int result = preparedStatement.executeUpdate();
-
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "재고가 추가되었습니다.");
             }else {
@@ -213,6 +209,12 @@ public class Stocktaking extends JFrame {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -126,6 +126,14 @@ public class MemberInfo extends JFrame {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+                try {
+                    if (resultSet != null) resultSet.close();
+                    if (preparedStatement != null) preparedStatement.close();
+                    if (connection != null) connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
@@ -150,6 +158,13 @@ public class MemberInfo extends JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
