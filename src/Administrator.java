@@ -51,6 +51,8 @@ public class Administrator extends JFrame {
 
         setVisible(true);
 
+        setResizable(false);
+
 //      여기까지 화면 구현
 
         // 회원정보 버튼

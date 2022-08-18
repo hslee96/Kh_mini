@@ -46,6 +46,8 @@ public class MemberUpdate extends JFrame {
 
         setVisible(true);
 
+        setResizable(false);
+
         // 확인 버튼
         btn1.addActionListener(e -> {
             connect();

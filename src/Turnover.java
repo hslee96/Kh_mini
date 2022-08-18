@@ -49,6 +49,8 @@ public class Turnover extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        setResizable(false);
+
 //      여기까지 화면 구현
 
         // 조회 버튼

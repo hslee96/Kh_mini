@@ -114,6 +114,8 @@ public class Stocktaking extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        setResizable(false);
+
 //      여기까지 화면구현
 
         // 재고 조회 버튼 (주문 내역 만큼 재고 감소시키는 메서드 필요)
