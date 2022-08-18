@@ -80,10 +80,11 @@ public class MemberInfo extends JFrame {
         // 삭제 버튼
         btn3.addActionListener(e -> {
             int result = JOptionPane.showConfirmDialog(null, "정말로 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+
             if (result == JOptionPane.CLOSED_OPTION) {
-                JOptionPane.showMessageDialog(null, "취소를 클릭하셨습니다.");
+                JOptionPane.showMessageDialog(null, "실행 취소");
             } else if (result == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "회원정보가 삭제되지 않았습니다.");
+                JOptionPane.showMessageDialog(null, "회원 정보가 삭제되지 않았습니다.");
             } else {
                 connect();
                 if (table.isRowSelected(table.getSelectedRow())) {
