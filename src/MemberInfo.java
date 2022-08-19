@@ -125,7 +125,7 @@ public class MemberInfo extends JFrame {
 
     public void memberShow() {
         try {
-            sql = "select * from member_Option";
+            sql = "select * from member_Option order by member_phone";
             preparedStatement = connection.prepareStatement(sql);
 
             resultSet = preparedStatement.executeQuery();
