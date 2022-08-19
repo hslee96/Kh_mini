@@ -208,12 +208,14 @@ public class Stocktaking extends JFrame {
             Enumeration<AbstractButton> elements = bg.getElements();
             while (elements.hasMoreElements()) {
                 AbstractButton abstractButton = elements.nextElement();
+
                 if (abstractButton.isSelected()) {
                     preparedStatement.setString(2, abstractButton.getText());
                 }
             }
 
             int result = preparedStatement.executeUpdate();
+
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "재고가 추가되었습니다.");
             }else {
