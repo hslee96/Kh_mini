@@ -141,9 +141,6 @@ public class MemberInfo extends JFrame {
 
                 model.addRow(data);
             }
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
