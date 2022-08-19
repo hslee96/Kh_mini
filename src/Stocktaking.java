@@ -121,7 +121,7 @@ public class Stocktaking extends JFrame {
 
 //      여기까지 화면구현
 
-        // 재고 조회 버튼 (주문 내역 만큼 재고 감소시키는 메서드 필요)
+        // 재고 조회 버튼
         btn1.addActionListener(e -> {
             connect();
             model.setRowCount(0);
