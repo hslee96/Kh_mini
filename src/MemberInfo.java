@@ -70,6 +70,7 @@ public class MemberInfo extends JFrame {
             memberShow();
 
         });
+
         // 수정 버튼
         btn2.addActionListener(e -> {
             if (table.isRowSelected(table.getSelectedRow())) {
@@ -124,7 +125,7 @@ public class MemberInfo extends JFrame {
 
     public void memberShow() {
         try {
-            sql = "select * from member_Option order by member_phone";
+            sql = "select * from member_Option";
             preparedStatement = connection.prepareStatement(sql);
 
             resultSet = preparedStatement.executeQuery();
@@ -174,7 +175,6 @@ public class MemberInfo extends JFrame {
             }
 
             model.removeRow(row);
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
