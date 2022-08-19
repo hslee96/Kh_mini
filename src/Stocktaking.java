@@ -33,6 +33,7 @@ public class Stocktaking extends JFrame {
 
         JButton btn1 = new JButton("조회");
         btn1.setBounds(250, 320, 100, 25);
+        btn1.setFont(new Font(stocktakingFont, Font.BOLD, 13));
 
         JLabel jl2 = new JLabel("재고추가");
         jl2.setBounds(40, 370, 100, 25);
@@ -85,9 +86,11 @@ public class Stocktaking extends JFrame {
 
         JButton btn2 = new JButton("추가");
         btn2.setBounds(345, 510, 60, 25);
+        btn2.setFont(new Font(stocktakingFont, Font.BOLD, 13));
 
         JButton btn3 = new JButton("뒤로가기");
         btn3.setBounds(250, 600, 100, 25);
+        btn3.setFont(new Font(stocktakingFont, Font.BOLD, 13));
 
         add(jl1);
         add(jsp);
@@ -134,6 +137,7 @@ public class Stocktaking extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "추가할 상품을 선택하고 수량을 입력하세요.", "오류", JOptionPane.WARNING_MESSAGE);
                 }
+
             } catch (NumberFormatException exception) {
                 exception.printStackTrace();
             }

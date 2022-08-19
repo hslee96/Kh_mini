@@ -30,8 +30,8 @@ public class Turnover extends JFrame {
 
         JButton btn1 = new JButton("조회");
         JButton btn2 = new JButton("뒤로가기");
-        btn1.setFont(new Font(turnoverInfoFont, Font.BOLD, 14));
-        btn2.setFont(new Font(turnoverInfoFont, Font.BOLD, 14));
+        btn1.setFont(new Font(turnoverInfoFont, Font.BOLD, 13));
+        btn2.setFont(new Font(turnoverInfoFont, Font.BOLD, 13));
         btn1.setPreferredSize(new Dimension(100,40));
         btn2.setPreferredSize(new Dimension(100,40));
 

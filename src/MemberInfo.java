@@ -37,10 +37,10 @@ public class MemberInfo extends JFrame {
         JButton btn3 = new JButton("삭제");
         JButton btn4 = new JButton("뒤로가기");
 
-        btn1.setFont(new Font(memberInfoFont, Font.BOLD, 12));
-        btn2.setFont(new Font(memberInfoFont, Font.BOLD, 12));
-        btn3.setFont(new Font(memberInfoFont, Font.BOLD, 12));
-        btn4.setFont(new Font(memberInfoFont, Font.BOLD, 12));
+        btn1.setFont(new Font(memberInfoFont, Font.BOLD, 13));
+        btn2.setFont(new Font(memberInfoFont, Font.BOLD, 13));
+        btn3.setFont(new Font(memberInfoFont, Font.BOLD, 13));
+        btn4.setFont(new Font(memberInfoFont, Font.BOLD, 13));
 
         btn1.setPreferredSize(new Dimension(90,40));
         btn2.setPreferredSize(new Dimension(90,40));
