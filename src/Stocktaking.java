@@ -154,7 +154,7 @@ public class Stocktaking extends JFrame {
         });
     }
 
-    void connect() {
+    public void connect() {
 
         String driver = "oracle.jdbc.driver.OracleDriver";
         String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -169,7 +169,7 @@ public class Stocktaking extends JFrame {
         }
     }
 
-    void stocktaking() {
+    public void stocktaking() {
         try {
             sql = "select product_id, product_name, product_count from product order by product_id";
             preparedStatement = connection.prepareStatement(sql);
@@ -198,7 +198,7 @@ public class Stocktaking extends JFrame {
         }
     }
 
-    void addStock() {
+    public void addStock() {
         try {
             sql = "update product set product_count = product_count + ? where product_name = ?";
             preparedStatement = connection.prepareStatement(sql);

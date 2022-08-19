@@ -68,7 +68,7 @@ public class Turnover extends JFrame {
         });
     }
 
-    void connect() {
+    public void connect() {
 
         String driver = "oracle.jdbc.driver.OracleDriver";
         String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -84,7 +84,7 @@ public class Turnover extends JFrame {
     }
 
     // 매출 조회하는 메서드
-    void turnover() {
+    public void turnover() {
         try {
             sql = "select bill_id, sale_name, sale_count, sale_cost * sale_count as \"sale_sum\", sale_date from sales_management";
             preparedStatement = connection.prepareStatement(sql);
